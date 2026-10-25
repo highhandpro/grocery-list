@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import type { GroceryCategory, GroceryItem } from '../types';
 import { CATEGORIES } from '../utils/categorizer';
-import { Check, Edit3, Trash2, X, Save } from 'lucide-react';
+import { Check, Edit3, Trash2, X, Save, ExternalLink } from 'lucide-react';
 
 interface ShoppingCardProps {
   item: GroceryItem;
@@ -142,6 +142,15 @@ export const ShoppingCard: React.FC<ShoppingCardProps> = ({
             >
               <Save size={16} /> Save Changes
             </button>
+            <a
+              href={`https://www.safeway.com/shop/search-results.html?q=${encodeURIComponent(name || item.name)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 px-3 py-2.5 bg-red-50 hover:bg-red-100 dark:bg-red-950/40 text-red-700 dark:text-red-300 font-medium text-xs rounded-xl transition border border-red-200 dark:border-red-900"
+              title="Search item on Safeway.com"
+            >
+              <ExternalLink size={14} /> Safeway
+            </a>
             <button
               onClick={() => onDelete(item.id)}
               className="p-2.5 text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-xl transition"
@@ -235,11 +244,21 @@ export const ShoppingCard: React.FC<ShoppingCardProps> = ({
         )}
       </div>
 
-      {/* Edit & delete buttons (hidden slightly on mobile, easy to click on tap) */}
+      {/* Edit, Safeway & delete buttons */}
       <div
         className="flex items-center gap-1 opacity-80 group-hover:opacity-100 transition-opacity"
         onClick={(e) => e.stopPropagation()}
       >
+        <a
+          href={`https://www.safeway.com/shop/search-results.html?q=${encodeURIComponent(item.name)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="p-1.5 text-slate-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 rounded-lg transition"
+          aria-label="Check on Safeway"
+          title="Check price & availability on Safeway.com"
+        >
+          <ExternalLink size={15} />
+        </a>
         <button
           onClick={(e) => {
             e.stopPropagation();
